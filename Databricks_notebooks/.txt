@@ -1,5 +1,6 @@
 This folder icludes all the folders and respective note books
 includes - all the supporting  helper functions ,widgets, and  continer paths 
 ingestion - all the ingestion files the files that  read and write files from adls to adls upload
-serving_notebook-icludes all teh final gold layer  files tables that are from the silver layer
+serving_notebook-includes all teh final gold layer  files tables that are from the silver layer
+insights - this folder contains the some insights on the final datasets and visulaozations to create the dashboard
 
