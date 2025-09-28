@@ -1,7 +1,7 @@
 # Big-Data-sports-Analytics-Pipeline-
 
 
-#Project Samples
+Project Samples
 ---------
 
 <img width="1907" height="757" alt="image" src="https://github.com/user-attachments/assets/c5c89856-0c1c-42fe-b59e-60a56212ff25" />
