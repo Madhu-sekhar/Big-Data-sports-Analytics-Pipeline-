@@ -1,0 +1,109 @@
+{
+    "name": "pl1Ingest_formula1data",
+    "properties": {
+        "activities": [
+            {
+                "name": "Get Metadata for the source folder",
+                "type": "GetMetadata",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "dataset": {
+                        "referenceName": "jsondtype",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "file_date": {
+                                "value": "@formatDateTime(pipeline().parameters.file_date,'yyyy-MM-dd')\n",
+                                "type": "Expression"
+                            }
+                        }
+                    },
+                    "fieldList": [
+                        "exists"
+                    ],
+                    "storeSettings": {
+                        "type": "AzureBlobFSReadSettings",
+                        "recursive": true,
+                        "modifiedDatetimeStart": null,
+                        "modifiedDatetimeEnd": null,
+                        "enablePartitionDiscovery": false
+                    },
+                    "formatSettings": {
+                        "type": "JsonReadSettings"
+                    }
+                }
+            },
+            {
+                "name": "If Condition to check the folder exists",
+                "type": "IfCondition",
+                "dependsOn": [
+                    {
+                        "activity": "Get Metadata for the source folder",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "expression": {
+                        "value": "@activity('Get Metadata for the source folder').output.exists",
+                        "type": "Expression"
+                    },
+                    "ifTrueActivities": [
+                        {
+                            "name": "inget_all_files",
+                            "type": "DatabricksNotebook",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "notebookPath": "/formula1/ingestion/0.ingestion_all_notebooks",
+                                "baseParameters": {
+                                    "file_date": {
+                                        "value": "@formatDateTime(pipeline().parameters.file_date,'yyyy-mm-dd')",
+                                        "type": "Expression"
+                                    },
+                                    "parameter": {
+                                        "value": "@variables('source')",
+                                        "type": "Expression"
+                                    }
+                                }
+                            },
+                            "linkedServiceName": {
+                                "referenceName": "databricks_ls",
+                                "type": "LinkedServiceReference"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "parameters": {
+            "file_date": {
+                "type": "string"
+            }
+        },
+        "variables": {
+            "source": {
+                "type": "String"
+            }
+        },
+        "annotations": [],
+        "lastPublishTime": "2025-09-27T08:47:16Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,66 @@
+{
+    "name": "invoking_pipelines",
+    "properties": {
+        "activities": [
+            {
+                "name": "ingestion_pipeline",
+                "type": "ExecutePipeline",
+                "dependsOn": [],
+                "policy": {
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "pl1Ingest_formula1data",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true,
+                    "parameters": {
+                        "file_date": {
+                            "value": "@pipeline().parameters.file_date",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "transformation_piple",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "ingestion_pipeline",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "pl2_for_transformations",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true,
+                    "parameters": {
+                        "file_date": {
+                            "value": "@pipeline().parameters.file_date",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "file_date": {
+                "type": "string"
+            }
+        },
+        "annotations": [],
+        "lastPublishTime": "2025-09-27T09:48:16Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}
