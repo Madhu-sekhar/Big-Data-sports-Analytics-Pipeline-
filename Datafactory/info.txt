@@ -1,0 +1,3 @@
+selected resource name:		invoking_pipelines
+selected resource type:		pipeline
+factory name:			df-formula1-databricks

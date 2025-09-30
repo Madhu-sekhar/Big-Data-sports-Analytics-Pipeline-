@@ -1,0 +1,23 @@
+{
+    "now": "2025-09-30T03:37:07.925Z",
+    "perfNow": 361425,
+    "diagnosticCorrelation": "a9e9c206-aac0-4ab5-9b5c-6ac5a40ddbac",
+    "source": "DownloadSupportFiles",
+    "environment": {
+        "productName": "adf",
+        "buildVersion": "1.0.091525.1",
+        "environmentType": 3,
+        "resourceName": "df-formula1-databricks",
+        "resourceRegion": "southindia",
+        "resourceGroup": "f1-project-rg",
+        "subscriptionId": "09e719f7-c2ea-4539-90c7-f4b694a86ad0",
+        "sessionId": "LZOYN7SCuffsxSQrK+ImVa",
+        "operationId": "",
+        "gitType": "live",
+        "loggingKey": "11d1a6d0-9ef0-4bf1-af80-92f102c4c03c"
+    },
+    "additionalInfo": {
+        "selectedResource": "invoking_pipelines",
+        "selectedResourceType": "pipeline"
+    }
+}
